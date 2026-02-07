@@ -1,5 +1,5 @@
 from flask import Flask, request, jsonify
-import joblib
+import pickle
 import pandas as pd
 
 app = Flask(__name__)
@@ -7,7 +7,8 @@ app = Flask(__name__)
 # 1. Load the Model
 # Make sure 'motor_model.pkl' is in the same folder as this script
 try:
-    model = joblib.load('motor_model.pkl')
+    with open("model.pkl","rb") as f:
+        model = pickle.load(f)
     print(">> Model loaded successfully!")
 except FileNotFoundError:
     print(">> ERROR: 'motor_model.pkl' not found.")
