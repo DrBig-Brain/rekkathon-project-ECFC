@@ -10,7 +10,7 @@ const char* password = "55pG#260";
 const char* serverUrl = "http://172.18.59.141:5000/log"; 
 
 // CHANGE THIS LABEL when recording different states!
-const char* dataLabel = "motor_bad"; 
+const char* dataLabel = "motor_good"; 
 // ======================================================
 
 // DSP Configuration

@@ -8,7 +8,7 @@
 const char* ssid = "LAMEIMPALA8678";
 const char* password = "55pG#260";
 // Ensure this route matches your Python prediction endpoint
-const char* serverUrl = "http://172.18.59.141:5000/predict"; 
+const char* serverUrl = "http://192.168.64.41:5000/predict"; 
 // ======================================================
 
 // DSP Configuration

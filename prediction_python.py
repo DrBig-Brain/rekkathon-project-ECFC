@@ -5,14 +5,9 @@ import pandas as pd
 app = Flask(__name__)
 
 # 1. Load the Model
-# Make sure 'motor_model.pkl' is in the same folder as this script
-try:
-    with open("model.pkl","rb") as f:
-        model = pickle.load(f)
-    print(">> Model loaded successfully!")
-except FileNotFoundError:
-    print(">> ERROR: 'motor_model.pkl' not found.")
-    exit()
+# FIX: Added 'r' before the string to handle backslashes correctly
+with open(r"C:\Users\garvk\Desktop\PMM\rekkathon-project-ECFC\model.pkl", "rb") as f:
+    model = pickle.load(f)
 
 @app.route('/predict', methods=['POST'])
 def predict():
@@ -39,6 +34,10 @@ def predict():
         # 4. Predict
         prediction = model.predict(input_df)[0]
         
+        # Convert numpy types to native Python types for JSON serialization
+        if hasattr(prediction, 'item'):
+            prediction = prediction.item()
+            
         print(f"Received Data: {features} -> Prediction: {prediction}")
 
         # 5. Reply to ESP
@@ -49,7 +48,7 @@ def predict():
 
     except Exception as e:
         print(f"Error: {e}")
-        return jsonify({'status': 'error'}), 400
+        return jsonify({'status': 'error', 'message': str(e)}), 400
 
 if __name__ == '__main__':
     # '0.0.0.0' makes the server accessible to other devices on your WiFi
